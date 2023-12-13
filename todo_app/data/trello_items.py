@@ -40,7 +40,6 @@ def get_items():
     for trello_list in response_list:
         for trello_card in trello_list['cards']:
             item = Item.from_trello_card(trello_card, trello_list)
-  #          trello_card['status'] = trello_list['name']
             items.append(item)
 
     return items
