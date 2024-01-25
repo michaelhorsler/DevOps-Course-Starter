@@ -1,5 +1,4 @@
 import requests
-import dotenv
 import os
 
 from todo_app.data.item import Item
