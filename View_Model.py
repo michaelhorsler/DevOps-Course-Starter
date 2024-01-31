@@ -1,5 +1,8 @@
+from todo_app.data.item import Item
+
+
 class ViewModel:
-    def __init__(self, items):
+    def __init__(self, items: list[Item]):
         self._items = items
  
     @property
@@ -7,14 +10,16 @@ class ViewModel:
         return self._items
 
     @property
-    def complete_items(items):
-        completeitems=items
-        # completeitems = items.filter(status="Complete")
+    def complete_items(self):
+        #completeitems=items
+        complete_items = [item for item in self._items if item.status =="Complete"]
+        # complete_items = list(filter(lambda item: item.status == "Complete", self._items))
         # filter and retrieve complete items
-        return completeitems
+        return complete_items
+        #return items 
     
     @property
-    def todo_items():
+    def todo_items(self):
        # filter and retrieve todo items
         return [] 
 
