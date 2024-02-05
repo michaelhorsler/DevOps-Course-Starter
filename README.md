@@ -41,7 +41,7 @@ The `.env` file is used by flask to set environment variables when running `flas
 # Setting up the Trello API Integration
 
 Pre-requisite: This app uses Trello API for storing todo items. Therefore a Trello account is required with a created board, API Key and Token. These are referenced by Global Variables within `.env` - 
-  TRELLO_API_KEY, TRELLO_API_TOKEN, TRELLO_BOARD_ID, TRELLO_TODO_LIST_ID, TRELLO_DONE_LIST_ID.
+  TRELLO_API_KEY, TRELLO_API_TOKEN, TRELLO_BOARD_ID, TRELLO_ACTIVE_LIST_ID, TRELLO_TODO_LIST_ID, TRELLO_DONE_LIST_ID.
 These are required to achieve correct operation.
 
 ## Running the App
@@ -63,3 +63,13 @@ Press CTRL+C to quit
  * Debugger PIN: 113-666-066
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Testing
+
+Unit tests are stored in test_view_model.py within the tests folder. 
+Three unit tests check the status of a pre-determined list confirming 3 possible status of "To Do", "Active" and "Complete".
+
+Integration test stored in test_Trello_Integration.py within the tests folder.
+Pre-requisite: API key and token are patched with fake values. These are referenced by Global Variables within `.env.test` - 
+  TRELLO_BOARD_ID, TRELLO_TODO_LIST_ID, TRELLO_ACTIVE_LIST_ID, TRELLO_DONE_LIST_ID.
+These are required to achieve correct operation. This test confirms default route request to index page with assertion of returned card name.

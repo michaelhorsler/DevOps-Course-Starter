@@ -9,10 +9,8 @@ test_items = [
     ]
 
 def test_view_model_complete_property_only_provides_completed_items_and_nothing_else():
-    
     # Arrange
     ## Pre work to do
-    
     view_model = ViewModel(test_items)
     
     # Act
@@ -26,11 +24,10 @@ def test_view_model_complete_property_only_provides_completed_items_and_nothing_
 def test_view_model_todo_property_only_provides_todo_items_and_nothing_else():
     # Arrange
     ## Pre work to do
-    
     view_model = ViewModel(test_items)
     
     # Act
-    ## filter items for complete.
+    ## filter items for To Do.
     todo_items = view_model.todo_items
 
     # Assert
@@ -40,11 +37,10 @@ def test_view_model_todo_property_only_provides_todo_items_and_nothing_else():
 def test_view_model_active_property_only_provides_active_items_and_nothing_else():
     # Arrange
     ## Pre work to do
-    
     view_model = ViewModel(test_items)
     
     # Act
-    ## filter items for complete.
+    ## filtered items for active.
     active_items = view_model.active_items
 
     # Assert

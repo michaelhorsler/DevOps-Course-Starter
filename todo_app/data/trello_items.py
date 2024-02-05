@@ -30,7 +30,7 @@ def get_items():
 
     response = requests.get(reqUrl, params = query_params)
 
-    response.raise_for_status()
+   # response.raise_for_status()
 
     response_list = response.json()
 
@@ -50,6 +50,19 @@ def move_item_to_done(item_id):
         "key": os.getenv("TRELLO_API_KEY"),
         "token": os.getenv("TRELLO_API_TOKEN"),
         "idList": os.getenv("TRELLO_DONE_LIST_ID")
+    }
+
+    response = requests.put(reqUrl, params = query_params)
+
+    response.raise_for_status()
+
+def move_item_to_active(item_id):
+    reqUrl = f"https://api.trello.com/1/cards/{item_id}"
+
+    query_params={
+        "key": os.getenv("TRELLO_API_KEY"),
+        "token": os.getenv("TRELLO_API_TOKEN"),
+        "idList": os.getenv("TRELLO_ACTIVE_LIST_ID")
     }
 
     response = requests.put(reqUrl, params = query_params)
