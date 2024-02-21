@@ -17,8 +17,7 @@
     <div class="col-md-12">
       <ul class="list-group mb-4">
         <h2>To Do Items</h2>
-        {% for item in view_model.items %}  
-          {% if item.status == "To Do" %}
+        {% for item in view_model.todo_items %}  
             <li>{{ item.name }} - {{item.status}}</li>
             <form action="active-item/{{item.id}}" method="post">
               <button>Active</button>
