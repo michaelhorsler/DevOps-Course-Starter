@@ -20,6 +20,8 @@ def test_view_model_complete_property_only_provides_completed_items_and_nothing_
     # Assert
     ## Check the filtering for an expected quantity
     assert len(complete_items) == 1   # 1 complete in test list
+    for item in complete_items:
+        assert item.status == "Complete"
 
 def test_view_model_todo_property_only_provides_todo_items_and_nothing_else():
     # Arrange
