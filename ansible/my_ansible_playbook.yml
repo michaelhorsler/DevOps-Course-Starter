@@ -1,0 +1,40 @@
+- name: Update Managed Hosts
+  hosts: managedhosts
+  remote_user: ec2-user
+
+  tasks:
+  - name: Install Git
+    ansible.builtin.yum:
+      name: git
+      state: latest
+    become: yes
+
+  - name: Install Python3
+    ansible.builtin.yum:
+      name: python3
+      state: latest
+    become: yes
+
+  - name: Install Poetry
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+    args:
+      creates: /home/ec2-user/.local/bin/poetry
+
+  - name: Create ToDoApp Directory
+    ansible.builtin.file:
+      path: /opt/todoapp
+      state: directory
+      owner: ec2-user
+    become: yes
+
+  - name: Checkout Git Repo Exercise 4
+    ansible.builtin.git:
+      repo: 'https://github.com/michaelhorsler/DevOps-Course-Starter.git'
+      dest: /opt/todoapp
+      version: main
+
+  - name: Install Python Dependancies
+    ansible.builtin.shell: poetry install
+    args:
+      chdir: /opt/todoapp
+      
