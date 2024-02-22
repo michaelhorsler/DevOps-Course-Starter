@@ -73,3 +73,4 @@ Integration test stored in test_Trello_Integration.py within the tests folder.
 Pre-requisite: API key and token are patched with fake values. These are referenced by Global Variables within `.env.test` - 
   TRELLO_BOARD_ID, TRELLO_TODO_LIST_ID, TRELLO_ACTIVE_LIST_ID, TRELLO_DONE_LIST_ID.
 These are required to achieve correct operation. This test confirms default route request to index page with assertion of returned card name.
+Testing command for operation: `poetry run pytest`

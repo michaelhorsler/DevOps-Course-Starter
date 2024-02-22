@@ -1,4 +1,4 @@
-from View_Model import ViewModel
+from todo_app.View_Model import ViewModel
 from todo_app.data.item import Item
 
 test_items = [

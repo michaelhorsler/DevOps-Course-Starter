@@ -18,11 +18,10 @@
       <ul class="list-group mb-4">
         <h2>To Do Items</h2>
         {% for item in view_model.todo_items %}  
-            <li>{{ item.name }} - {{item.status}}</li>
-            <form action="active-item/{{item.id}}" method="post">
-              <button>Active</button>
-            </form>    
-          {% endif %}
+          <li>{{ item.name }} - {{item.status}}</li>
+          <form action="active-item/{{item.id}}" method="post">
+            <button>Active</button>
+          </form>    
         {% endfor %}
       </ul>
       <ul class="list-group mb-4">
