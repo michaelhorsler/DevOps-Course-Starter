@@ -54,3 +54,15 @@
       src: /home/ec2-user/.env.j2
       dest: /opt/todoapp/.env
 
+  - name: Copy todo app service definition file
+    ansible.builtin.copy:
+      src: /home/ec2-user/todoapp.service
+      dest: /etc/systemd/system/todoapp.service
+    become: yes
+
+  - name: Make sure a service unit is running
+    ansible.builtin.systemd_service:
+      state: restarted
+      daemon_reload: true
+      name: todoapp.service
+    become: yes
