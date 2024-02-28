@@ -2,6 +2,14 @@
   hosts: managedhosts
   remote_user: ec2-user
 
+  vars_prompt:
+
+  - name: trello_api_key
+    prompt: Enter your Trello API key..
+  
+  - name: trello_api_token
+    prompt: Enter your Trello API Token..
+
   tasks:
   - name: Install Git
     ansible.builtin.yum:
@@ -20,21 +28,29 @@
     args:
       creates: /home/ec2-user/.local/bin/poetry
 
-  - name: Create ToDoApp Directory
-    ansible.builtin.file:
-      path: /opt/todoapp
-      state: directory
-      owner: ec2-user
+  - name: Create todoapp Directory
+    ansible.builtin.shell: mkdir /opt/todoapp
+    args:
+      creates: /opt/todoapp
+    become: yes
+    
+  - name: Change folder owner to ec2-user
+    ansible.builtin.shell: chown ec2-user /opt/todoapp
     become: yes
 
   - name: Checkout Git Repo Exercise 4
     ansible.builtin.git:
       repo: 'https://github.com/michaelhorsler/DevOps-Course-Starter.git'
       dest: /opt/todoapp
-      version: main
+      version: exercise-4
 
   - name: Install Python Dependancies
     ansible.builtin.shell: poetry install
     args:
       chdir: /opt/todoapp
-      
+
+  - name: Copy .env file from template file
+    ansible.builtin.template:
+      src: /home/ec2-user/.env.j2
+      dest: /opt/todoapp/.env
+
