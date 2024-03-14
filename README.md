@@ -74,3 +74,13 @@ Pre-requisite: API key and token are patched with fake values. These are referen
   TRELLO_BOARD_ID, TRELLO_TODO_LIST_ID, TRELLO_ACTIVE_LIST_ID, TRELLO_DONE_LIST_ID.
 These are required to achieve correct operation. This test confirms default route request to index page with assertion of returned card name.
 Testing command for operation: `poetry run pytest`
+
+## Deploying the application via Ansible
+
+To deploy the application via Ansible, copy the `ansible` folder to the host node, update the inventory file (to include the control nodes to deploy to) and run the following command:
+
+```
+ansible-playbook my_ansible_playbook.yml -i my_server.ini
+```
+
+>Please Note you will need to setup passworless SSH access from the host to each of the managed nodes.
