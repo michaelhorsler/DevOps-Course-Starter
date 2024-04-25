@@ -2,7 +2,7 @@ FROM python as base
 
 # Perform common operations, dependency installation etc...
 RUN pip install poetry
-RUN pip install flask
+WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry update
 RUN poetry install
@@ -13,10 +13,10 @@ COPY . .
 FROM base as production
 
 # Configure for production
-ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0", "todo_app/app:create_app()"]
+ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
 
 FROM base as development
 
 # Configure for local development
 ENV FLASK_ENV=development
-ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0", "todo_app/app:create_app()"]
+ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]

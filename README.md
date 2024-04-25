@@ -90,7 +90,7 @@ ansible-playbook my_ansible_playbook.yml -i my_server.ini
 Contained docker images have been created to deploy the application within a controlled VM. The Dockerfile installs the required support applications and creates an entrypoint command setting up the Todo Application. The sensitive configuration variables are imported via the .env file on the command line. Port 5000 is exposed for viewing the Todo App via your browser on localhost.:
 
 ```
-docker run --env-file .env --publish 127.0.0.1:5000:5000 todo-app
+docker run --env-file .env --publish 127.0.0.1:5000:5000 todo-app:prod
 ```
 
 A Multi-stage build has been implemented to invoke either Production or Development modes within the TodoApp. Built via the following commands to create seperate container VM's: 
