@@ -83,4 +83,25 @@ To deploy the application via Ansible, copy the `ansible` folder to the host nod
 ansible-playbook my_ansible_playbook.yml -i my_server.ini
 ```
 
->Please Note you will need to setup passworless SSH access from the host to each of the managed nodes.
+>Please Note you will need to setup passwordless SSH access from the host to each of the managed nodes.
+
+## Utilising Docker to build and deploy the application
+
+Contained docker images have been created to deploy the application within a controlled VM. The Dockerfile installs the required support applications and creates an entrypoint command setting up the Todo Application. The sensitive configuration variables are imported via the .env file on the command line. Port 5000 is exposed for viewing the Todo App via your browser on localhost.:
+
+```
+docker run --env-file .env --publish 127.0.0.1:5000:5000 todo-app:prod
+```
+
+A Multi-stage build has been implemented to invoke either Production or Development modes within the TodoApp. Built via the following commands to create seperate container VM's: 
+
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker build --target production --tag todo-app:prod .
+```
+
+Binding to the local folder structure to allow for easy code updates without rebuild:
+
+```
+docker run --mount type=bind,source=$(pwd)/todo_app,target=/app/todo_app --env-file .env --publish 127.0.0.1:5000:5000  todo-app:dev
+```
