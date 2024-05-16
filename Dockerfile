@@ -10,6 +10,10 @@ ENV WEBAPP_PORT=5000
 EXPOSE ${WEBAPP_PORT}
 COPY . .
 
+FROM base as test
+
+ENTRYPOINT [ "poetry", "run", "pytest" ]
+
 FROM base as production
 
 # Configure for production
