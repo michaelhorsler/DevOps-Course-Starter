@@ -12,7 +12,8 @@ COPY . .
 
 FROM base as test
 
-ENTRYPOINT [ "poetry", "run", "pytest" ]
+#Configure for test
+ENTRYPOINT ["poetry", "run", "pytest"]
 
 FROM base as production
 
