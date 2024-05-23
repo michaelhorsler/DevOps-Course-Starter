@@ -11,17 +11,15 @@ EXPOSE ${WEBAPP_PORT}
 COPY . .
 
 FROM base as test
-
 #Configure for test
-ENTRYPOINT ["poetry", "run", "pytest"]
+COPY .env.test .
+ENTRYPOINT poetry run pytest
 
 FROM base as production
-
 # Configure for production
-ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT poetry run flask run --host=0.0.0.0
 
 FROM base as development
-
 # Configure for local development
 ENV FLASK_ENV=development
-ENTRYPOINT ["poetry", "run", "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT poetry run flask run --host=0.0.0.0
