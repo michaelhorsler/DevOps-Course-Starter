@@ -93,15 +93,27 @@ Contained docker images have been created to deploy the application within a con
 docker run --env-file .env --publish 127.0.0.1:5000:5000 todo-app:prod
 ```
 
-A Multi-stage build has been implemented to invoke either Production or Development modes within the TodoApp. Built via the following commands to create seperate container VM's: 
+A Multi-stage build has been implemented to invoke either Production, Development or Test modes within the TodoApp. Built via the following commands to create seperate container VM's: 
 
 ```
 $ docker build --target development --tag todo-app:dev .
 $ docker build --target production --tag todo-app:prod .
+$ docker build --target test --tag todo-app:test .
 ```
-
 Binding to the local folder structure to allow for easy code updates without rebuild:
 
 ```
 docker run --mount type=bind,source=$(pwd)/todo_app,target=/app/todo_app --env-file .env --publish 127.0.0.1:5000:5000  todo-app:dev
+
+docker run --env-file .env --publish 127.0.0.1:5000:5000  todo-app:test
+```
+Build and Run commands to execute tests:
+```
+$ docker build --target test --tag todo-app:test .
+
+docker run --env-file .env.test --publish 127.0.0.1:5000:5000  todo-app:test
+
+docker run --env-file .env.test --publish 127.0.0.1:5000:5000  todo-app:test todo_app/tests/test_Trello_Integration.py
+
+docker run --env-file .env.test --publish 127.0.0.1:5000:5000  todo-app:test todo_app/tests/test_view_model.py
 ```
