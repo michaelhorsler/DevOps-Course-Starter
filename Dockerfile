@@ -6,8 +6,9 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry update
 RUN poetry install
-ENV WEBAPP_PORT=5000
-EXPOSE ${WEBAPP_PORT}
+ENV WEBSITES_PORT=5000
+# ENV WEBAPP_PORT=8080
+EXPOSE ${WEBSITES_PORT}
 COPY . .
 
 FROM base as test
