@@ -128,6 +128,10 @@ $ docker login
 $ docker build --target production --tag michaelsminis/todo-app:latest .
 $ docker push michaelsminis/todo-app:latest
 ```
+Docker Image address:
+```
+https://hub.docker.com/r/michaelsminis/todo-app
+```
 
 The next stage is to create an App Service Plan within Azure to manage the WebApp, and create a WebApp referencing the Docker container as the source image.
 
@@ -144,5 +148,5 @@ $ az webapp config appsettings set -g Cohort31_MicHor_ProjectExercise -n mrh-tod
 Executed via Gitbash, the following Webhook returns a link to a log-stream realting to the re-pulling of the image and restarting of the app:
 
 ```
-$ curl -dH -X POST "https://\$mrh-todoapp:65EoGyeQrTPutRAYztZhNQwldwGGxaAJPlx6RgogkF8f2xWPHcbPHLK3jX8g@mrh-todoapp.scm.azurewebsites.net/api/registry/webhook"
+$ curl -dH -X POST "Webhook address within env."
 ```
