@@ -150,3 +150,7 @@ Executed via Gitbash, the following Webhook returns a link to a log-stream realt
 ```
 $ curl -dH -X POST "Webhook address within env."
 ```
+This site can currently be accessed at:
+```
+<https://mrh-todoapp.azurewebtsites.net>
+```
