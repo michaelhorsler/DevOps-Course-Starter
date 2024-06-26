@@ -117,3 +117,36 @@ docker run --env-file .env.test --publish 127.0.0.1:5000:5000  todo-app:test tod
 
 docker run --env-file .env.test --publish 127.0.0.1:5000:5000  todo-app:test todo_app/tests/test_view_model.py
 ```
+
+## Creating an Azure WebApp utilising a Docker image
+
+Utilising the Production image build the application is built and pushed to the Docker repository. Logging in to Azure and Docker within VsCode allows command line interractions with the deployment systems.
+
+```
+$ az login
+$ docker login
+$ docker build --target production --tag michaelsminis/todo-app:latest .
+$ docker push michaelsminis/todo-app:latest
+```
+Docker Image address:
+```
+https://hub.docker.com/r/michaelsminis/todo-app
+```
+
+The next stage is to create an App Service Plan within Azure to manage the WebApp, and create a WebApp referencing the Docker container as the source image.
+
+```
+$ az appservice plan create --resource-group Cohort31_MicHor_ProjectExercise -n mrh-todoapp-serviceplan --sku B1 --is-linux
+$ az webapp create --resource-group Cohort31_MicHor_ProjectExercise --plan mrh-todoapp-serviceplan --name mrh-todoapp --deployment-container-image-name hub.docker.com/r/michaelsminis/mrh-todoapp:latest
+```
+
+The WebApp requires the environment variables to be updated in order to access the Trello board etc. Updating these via json eliminates the requirment of adding each variable independently. Therefore a env.json has been created and added to .gitignore to prevent the details being shared publicaly.
+
+```
+$ az webapp config appsettings set -g Cohort31_MicHor_ProjectExercise -n mrh-todoapp --settings @env.json
+```
+Executed via Gitbash, the following Webhook returns a link to a log-stream realting to the re-pulling of the image and restarting of the app:
+
+```
+$ curl -dH -X POST "Webhook address within env."
+```
