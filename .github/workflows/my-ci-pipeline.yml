@@ -29,6 +29,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}      
-#    - uses: actions/checkout@v2
-#    - run: docker build --target prod --tag todo-app:prod .
-#    - run: docker run todo-app:prod
+
+      -
+        name: Build and Push Production to Docker Hub
+        uses: actions/checkout@v2
+      - run: docker build --target prod --tag michaelsminis/todo-app:latest .
+      - run: docker push michaelsminis/todo-app:latest
