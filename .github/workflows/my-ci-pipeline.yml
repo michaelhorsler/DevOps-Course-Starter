@@ -35,6 +35,6 @@ jobs:
         uses: actions/checkout@v2
       - run: docker build --target production --tag michaelsminis/todo-app:latest .
       - run: docker push michaelsminis/todo-app:latest
-      - run: curl -dH --fail -X POST '$AZURE_WEBHOOK_URL'
+      - run: curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK }}'
 
       
