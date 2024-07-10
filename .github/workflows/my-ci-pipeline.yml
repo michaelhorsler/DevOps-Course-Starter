@@ -33,5 +33,5 @@ jobs:
       -
         name: Build and Push Production to Docker Hub
         uses: actions/checkout@v2
-      - run: docker build --target prod --tag michaelsminis/todo-app:latest .
+      - run: docker build --target production --tag michaelsminis/todo-app:latest .
       - run: docker push michaelsminis/todo-app:latest
