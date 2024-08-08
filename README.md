@@ -154,3 +154,12 @@ This site can currently be accessed at:
 ```
 <https://mrh-todoapp.azurewebtsites.net>
 ```
+Ci/Cd Github pipeline updated to include build of Production image if Tests were passed successfully and committed via main branch as a push request. 
+Deployed to Docker Hub via use of environment variables with Github Actions: 
+```
+DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
+```
+Deployed to Azure via use of Webhook contained within Github environment variable:
+```
+AZURE_WEBHOOK
+```
