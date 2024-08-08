@@ -33,7 +33,7 @@ jobs:
 
       -
         name: Build and Push Production to Docker Hub
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - run: docker build --target production --tag michaelsminis/todo-app:latest .
       - run: docker push michaelsminis/todo-app:latest
       - run: curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK }}'
