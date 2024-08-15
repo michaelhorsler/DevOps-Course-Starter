@@ -1,3 +1,5 @@
+# Legacy code to interface with Trello todo board.
+
 import requests
 import os
 
@@ -33,7 +35,7 @@ def get_items():
    # response.raise_for_status()
 
     response_list = response.json()
-
+   # print (response_list)
     items=[]
 
     for trello_list in response_list:
@@ -41,6 +43,7 @@ def get_items():
             item = Item.from_trello_card(trello_card, trello_list)
             items.append(item)
 
+   # print (items)
     return items
 
 def move_item_to_done(item_id):

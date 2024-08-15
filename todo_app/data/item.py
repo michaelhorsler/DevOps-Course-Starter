@@ -7,3 +7,7 @@ class Item:
     @classmethod
     def from_trello_card(cls, card, list):
         return cls(card['id'], card['name'], list['name'])
+
+    @classmethod
+    def from_mongodb(cls, list):
+        return cls(list['_id'], list['name'])
