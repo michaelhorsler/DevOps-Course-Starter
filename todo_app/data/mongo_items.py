@@ -36,4 +36,11 @@ def get_items():
     return items
 
 def move_item_to_active(item_id):
-    
+    filter = { '_id': item_id}
+    newvalues = { "$set": { 'status': 'Active' } }
+    posts.update_one(filter, newvalues)
+
+def move_item_to_done(item_id):
+    filter = { '_id': item_id}
+    newvalues = { "$set": { 'status': 'Complete' } }
+    posts.update_one(filter, newvalues)

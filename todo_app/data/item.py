@@ -10,4 +10,4 @@ class Item:
 
     @classmethod
     def from_mongodb(cls, list):
-        return cls(list['_id'], list['name'])
+        return cls(list['_id'], list['name'], list['status'])
