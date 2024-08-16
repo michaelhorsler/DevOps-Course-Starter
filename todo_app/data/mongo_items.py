@@ -1,4 +1,3 @@
-import requests
 import os
 import pymongo
 from pymongo import MongoClient
@@ -19,7 +18,6 @@ def add_item(title):
         "name": title,
     }
     post_id = posts.insert_one(post).inserted_id
-
     print(post_id)
 
 def get_items():
@@ -29,9 +27,6 @@ def get_items():
     for post in posts.find():
         item = Item.from_mongodb(post)
         items.append(item)
-      #  print(post)
-     #   item=post.items()
-      #  items.append (list(item))
     print (items)
     return items
 
