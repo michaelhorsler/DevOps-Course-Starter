@@ -2,7 +2,8 @@ FROM python as base
 
 # Perform common operations, dependency installation etc...
 RUN pip install poetry
-RUN pip install --upgrade setuptools
+RUN pip uninstall -y setuptools
+RUN pip install setuptools==39.1.0
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN poetry update
