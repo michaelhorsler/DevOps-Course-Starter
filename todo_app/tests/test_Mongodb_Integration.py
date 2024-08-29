@@ -26,11 +26,10 @@ def test_index_page(client):
         }
     posts.insert_one(post).inserted_id
 
-    #get_items()
-   
+  
     # Make a request to our app's index page
 
     response = client.get('/')
     
     assert response.status_code == 200
-    assert 'To Do' in response.data.decode()
+    assert 'Example' in response.data.decode()
