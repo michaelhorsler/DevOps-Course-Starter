@@ -16,7 +16,7 @@ def client():
         with test_app.test_client() as client:
             yield client
 
-#def test_index_page(client: FlaskClient):
+
 def test_index_page(client):
 
     posts = get_post_collection()
@@ -25,7 +25,6 @@ def test_index_page(client):
             "name": "Example",
         }
     posts.insert_one(post).inserted_id
-
   
     # Make a request to our app's index page
 
