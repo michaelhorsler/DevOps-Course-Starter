@@ -5,6 +5,7 @@ import pytest
 from todo_app import app
 from dotenv import load_dotenv, find_dotenv
 from todo_app.data.mongo_items import get_post_collection, get_items
+from flask_dance.consumer.storage import MemoryStorage
 
 @pytest.fixture
 def client():
