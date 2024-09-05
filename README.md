@@ -44,6 +44,10 @@ Pre-requisite: This app uses a Mongo Database for storing todo items. Therefore 
   MONGO_CONN_STRING, MONGODB.
 These are required to achieve correct operation.
 
+## Data Encryption in Azure Cosmos DB
+
+All Azure Cosmos DB data is now encrypted in transit (over the network) and at rest (nonvolatile storage), providing end-to-end encryption.
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
