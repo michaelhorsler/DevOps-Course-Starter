@@ -5,9 +5,11 @@ from todo_app.flask_config import Config
 from todo_app.View_Model import ViewModel
 from todo_app.oauth import blueprint
 from flask_dance.contrib.github import github
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 def create_app():
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     app.config.from_object(Config())
     app.register_blueprint(blueprint, url_prefix="/login")
 
