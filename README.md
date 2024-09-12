@@ -44,6 +44,10 @@ Pre-requisite: This app uses a Mongo Database for storing todo items. Therefore 
   MONGO_CONN_STRING, MONGODB.
 These are required to achieve correct operation.
 
+## Data Encryption in Azure Cosmos DB
+
+All Azure Cosmos DB data is now encrypted in transit (over the network) and at rest (nonvolatile storage), providing end-to-end encryption.
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
@@ -145,7 +149,7 @@ The WebApp requires the environment variables to be updated in order to access t
 ```
 $ az webapp config appsettings set -g Cohort31_MicHor_ProjectExercise -n mrh-todoapp --settings @env.json
 ```
-Executed via Gitbash, the following Webhook returns a link to a log-stream realting to the re-pulling of the image and restarting of the app:
+Executed via Gitbash, the following Webhook returns a link to a log-stream relating to the re-pulling of the image and restarting of the app:
 
 ```
 $ curl -dH -X POST "Webhook address within env."
@@ -154,8 +158,8 @@ This site can currently be accessed at:
 ```
 <https://mrh-todoapp.azurewebtsites.net>
 ```
-Ci/Cd Github pipeline updated to include build of Production image if Tests were passed successfully and committed via main branch as a push request. 
-Deployed to Docker Hub via use of environment variables with Github Actions: 
+Ci/Cd Github pipeline updated to include build of the Production image if the Tests were passed successfully and committed via main branch as a push request. 
+This is deployed to Docker Hub via use of environment variables with Github Actions: 
 ```
 DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
 ```
@@ -163,3 +167,21 @@ Deployed to Azure via use of Webhook contained within Github environment variabl
 ```
 AZURE_WEBHOOK
 ```
+
+## Vulnerability and Encryption-at-rest and in-transit
+
+Inclusion of external references and packages can introduce potential vulnerabilities into the code structure when external code is modified relevant to your own original intended use. Therefore within the Ci/Cd pipeline, we now invoke vulnerability scanning for all referenced packages to highligh any potential security weakness.
+This is achieved via the safety tests in the ci-pipeline.yml:
+```
+  - run: docker run --entrypoint poetry todo-app:test run safety check
+    continue-on-error: true
+```
+
+Encryption-in-transit has been added to the project in the form of OAuth authentication to secure communications to and from the app and the user. As mentioned previously, the Cosmos Mongo DB has security applied via the host Azure.
+In order to handle the OAuth communication additional secret variables have been added to the .env file as follows:
+```
+OAUTH_TEST_CLIENT_ID, OAUTH_TEST_CLIENT_SECRET, 
+OAUTHLIB_INSECURE_TRANSPORT, OAUTH_CLIENT_ID, 
+OAUTH_CLIENT_SECRET
+```
+These relate to the OAuth apps generated within Azure.
