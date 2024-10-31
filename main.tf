@@ -54,8 +54,6 @@ resource "azurerm_linux_web_app" "main" {
 }
 
 
-
-
 resource "azurerm_cosmosdb_account" "main" {
   name                  = "mrhtodoapp"
   location              = data.azurerm_resource_group.main.location
