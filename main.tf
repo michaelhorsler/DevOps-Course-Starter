@@ -5,6 +5,12 @@ terraform {
       version = ">= 3.8"
     }
   }
+  backend "azurerm" {
+      resource_group_name  = "Cohort31_MicHor_ProjectExercise"
+      storage_account_name = "mrhtodoappstorage"
+      container_name       = "mrhtodoappcontainer"
+      key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
@@ -36,6 +42,15 @@ resource "azurerm_linux_web_app" "main" {
       docker_registry_url   = "https://docker.io"
     }
   }
+  app_settings = {
+    "FLASK_APP" = var.FLASK_APP
+    "FLASK_DEBUG" = var.FLASK_DEBUG
+    "MONGO_CONN_STRING" = var.MONGO_CONN_STRING
+    "MONGODB" = var.MongoDB
+    "SECRET_KEY" = var.SECRET_KEY
+    "OAUTH_CLIENT_ID" = var.OAUTH_CLIENT_ID
+    "OAUTH_CLIENT_SECRET" = var.OAUTH_CLIENT_SECRET
+  }
 }
 
 
@@ -47,9 +62,11 @@ resource "azurerm_cosmosdb_account" "main" {
   resource_group_name   = data.azurerm_resource_group.main.name
   offer_type            = "Standard"
   kind                  = "MongoDB"
+  mongo_server_version  = "4.2"
+    lifecycle { prevent_destroy = true }
 
-  capabilities {
-    name = "EnableMongo"
+  capabilities { 
+      name = "EnableMongo"
   }
 
   capabilities {
@@ -77,6 +94,4 @@ resource "azurerm_cosmosdb_mongo_database" "main" {
   name                = "mrhtodoappdb"
   resource_group_name = data.azurerm_cosmosdb_account.main.resource_group_name
   account_name        = data.azurerm_cosmosdb_account.main.name
-  throughput          = 400
-    lifecycle { prevent_destroy = true }
 }

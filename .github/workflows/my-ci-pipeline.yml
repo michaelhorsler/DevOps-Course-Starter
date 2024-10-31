@@ -38,6 +38,7 @@ jobs:
         uses: actions/checkout@v4
       - run: docker build --target production --tag michaelsminis/todo-app:latest .
       - run: docker push michaelsminis/todo-app:latest
-      - run: curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK }}'
-
+      - run: terraform init
+      - run: terraform apply -auto-approve
+      - run: curl -dH -X POST "$(terraform output -raw webhook_url)"
       
