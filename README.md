@@ -185,3 +185,37 @@ OAUTHLIB_INSECURE_TRANSPORT, OAUTH_CLIENT_ID,
 OAUTH_CLIENT_SECRET
 ```
 These relate to the OAuth apps generated within Azure.
+
+## Provisioning Role for CI/CD
+For a CI/CD process to run infrastructure commands, such as Terraform, a specific provisioning role must be created/enabled for use.
+
+Run the following command using the Azure CLI to provision a specifc role for use, updating the role_name, subscription_id and resource_group_name accordingly
+
+```
+az ad sp create-for-rbac --name "role_name" --role Contributor --scopes /subscriptions/subscription_id/resourceGroups/resource_group_name
+```
+Note the response values, these are needed within the CI/CD pipeline and stored within the GitHub Secrets.
+
+## Terraform
+
+The project uses Terraform to deploy its cloud solution using Infrastructure As Code (IAC). Install the appropriate version from their website: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+## Terraform Commands
+To run Terraform locally, ensure that the variables.auto.tfvars is completed. Then log into Azure using the Azure CLI tool previously installed, selecting the necessary subscription id.
+
+Additionally, within main.tf ensure that the correct backend is referenced within the backend "azurerm" property
+
+```
+$ az login 
+- Select subscription
+$ terraform init
+$ terraform plan
+```
+The plan will validate the cloud state vs local script, compare and identify changes necessary.
+
+```
+$ terraform apply
+- Runs a plan and asks to confirm before applying changes
+$ terraform apply --auto-approve
+- Runs a plan and then automatically applys the changes
+```
