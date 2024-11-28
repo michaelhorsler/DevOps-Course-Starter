@@ -219,3 +219,14 @@ $ terraform apply
 $ terraform apply --auto-approve
 - Runs a plan and then automatically applys the changes
 ```
+
+## Logging
+Logging is conducted via action replication to the console and to an external logging application called Loggly.
+The level of logging is adjusted via use of the LOG_LEVEL variable. This can produce full logging when set to DEGUG or error logging only when set to ERROR (as per production.)
+
+2 additional variables are stored within the .env file:
+```
+LOG_LEVEL
+LOGGLY_TOKEN
+```
+The Loggly Token provides an external logging route to store and record the logs.

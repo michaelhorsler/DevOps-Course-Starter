@@ -8,6 +8,7 @@ from flask_dance.contrib.github import github
 from werkzeug.middleware.proxy_fix import ProxyFix
 from loggly.handlers import HTTPSHandler
 from logging import Formatter
+import os
 
 def create_app():
     app = Flask(__name__)
@@ -15,13 +16,15 @@ def create_app():
     app.config.from_object(Config())
     app.logger.setLevel(app.config['LOG_LEVEL'])
 
+#    app.logger.info("Config - %s", app.config['LOG_LEVEL'])
+
     if app.config['LOGGLY_TOKEN'] is not None:
         handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
         handler.setFormatter(
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
         )
         app.logger.addHandler(handler)
-
+    app.logger.info("User - %s", os.getlogin())
     app.register_blueprint(blueprint, url_prefix="/login")
 
     @app.route('/')
@@ -37,6 +40,7 @@ def create_app():
     @app.route('/add-todo', methods=["POST"])
     def add_todo():
 #        if not github.authorized:
+#            app.logger.info("Login Failure - Unauthorised.")
 #            return redirect('http://localhost:5000/login/github')
         new_todo_title = request.form.get('title')
         app.logger.info("Add Todo Item - %s", new_todo_title)
@@ -46,6 +50,7 @@ def create_app():
     @app.route('/active-item/<todo_id>', methods=["POST"])
     def active_item(todo_id):
     #    if not github.authorized:
+    #        app.logger.info("Login Failure - Unauthorised.")
     #        return redirect('http://localhost:5000/login/github')
        app.logger.info("Add Active Item - %s", todo_id)
        move_item_to_active(todo_id)
@@ -54,6 +59,7 @@ def create_app():
     @app.route('/complete-item/<active_id>', methods=["POST"])
     def complete_item(active_id):
     #    if not github.authorized:
+    #        app.logger.info("Login Failure - Unauthorised.")
     #        return redirect('http://localhost:5000/login/github')
        app.logger.info("Complete Item - %s", active_id)
        move_item_to_done(active_id)
