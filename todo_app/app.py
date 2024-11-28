@@ -14,9 +14,9 @@ def create_app():
     app = Flask(__name__)
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.config.from_object(Config())
-    app.logger.setLevel(app.config['LOG_LEVEL'])
-
-#    app.logger.info("Config - %s", app.config['LOG_LEVEL'])
+    app.logger.setLevel(app.config['LOGS_LEVEL'])
+    app.logger.info("Log Level - %s", app.config['LOGS_LEVEL'])
+#    app.logger.info("Loggly token - %s", app.config['LOGGLY_TOKEN'])
 
     if app.config['LOGGLY_TOKEN'] is not None:
         handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
@@ -24,7 +24,7 @@ def create_app():
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
         )
         app.logger.addHandler(handler)
-    app.logger.info("User - %s", os.getlogin())
+    app.logger.info("Logged in User - %s", os.getlogin())
     app.register_blueprint(blueprint, url_prefix="/login")
 
     @app.route('/')

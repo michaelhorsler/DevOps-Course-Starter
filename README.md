@@ -229,4 +229,4 @@ The level of logging is adjusted via use of the LOG_LEVEL variable. This can pro
 LOG_LEVEL
 LOGGLY_TOKEN
 ```
-The Loggly Token provides an external logging route to store and record the logs.
+The Loggly Token provides an external logging route to store and record the logs. Logs include User id, function performed and database id of corresponding item.
