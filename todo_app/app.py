@@ -24,7 +24,7 @@ def create_app():
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
         )
         app.logger.addHandler(handler)
-    app.logger.info("Logged in User - %s", os.getlogin())
+        app.logger.info("Logged in User - %s", os.getlogin())
     app.register_blueprint(blueprint, url_prefix="/login")
 
     @app.route('/')
