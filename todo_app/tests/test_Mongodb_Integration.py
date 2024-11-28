@@ -8,6 +8,7 @@ from todo_app.data.mongo_items import get_post_collection, get_items
 from flask_dance.consumer.storage import MemoryStorage
 from todo_app.oauth import blueprint
 
+
 @pytest.fixture
 def client(monkeypatch):
     file_path = find_dotenv('.env.test')
