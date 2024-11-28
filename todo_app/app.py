@@ -15,8 +15,9 @@ def create_app():
 
     @app.route('/')
     def index():
-    #    if not github.authorized:
-    #        return redirect('http://localhost:5000/login/github')
+#        if not github.authorized:
+#            app.logger.info("Login Failure - Unauthorised.")
+#            return redirect('http://localhost:5000/login/github')
         items = get_items()
         item_view_model = ViewModel(items)
     #   return render_template('index.html', items = items)
@@ -24,9 +25,10 @@ def create_app():
 
     @app.route('/add-todo', methods=["POST"])
     def add_todo():
-    #    if not github.authorized:
-    #        return redirect('http://localhost:5000/login/github')
+#        if not github.authorized:
+#            return redirect('http://localhost:5000/login/github')
         new_todo_title = request.form.get('title')
+        app.logger.info("Add Todo Item - %s", new_todo_title)
         add_item(new_todo_title)
         return redirect('/')
 
@@ -34,14 +36,16 @@ def create_app():
     def active_item(todo_id):
     #    if not github.authorized:
     #        return redirect('http://localhost:5000/login/github')
-        move_item_to_active(todo_id)
-        return redirect('/')
+       app.logger.info("Add Active Item - %s", todo_id)
+       move_item_to_active(todo_id)
+       return redirect('/')
 
     @app.route('/complete-item/<active_id>', methods=["POST"])
     def complete_item(active_id):
     #    if not github.authorized:
     #        return redirect('http://localhost:5000/login/github')
-        move_item_to_done(active_id)
-        return redirect('/')
+       app.logger.info("Complete Item - %s", active_id)
+       move_item_to_done(active_id)
+       return redirect('/')
     
     return app
