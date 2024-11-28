@@ -15,6 +15,7 @@ mongomock = "^4.1.2"
 setuptools = "^73.0.1"
 safety = "^3.2.7"
 flask-dance = "^7.1.0"
+loggly-python-handler = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 
