@@ -5,8 +5,10 @@ RUN pip install poetry
 RUN pip uninstall -y setuptools
 RUN pip install setuptools==39.1.0
 WORKDIR /app
+COPY poetry.toml ./
 COPY pyproject.toml poetry.lock ./
 # azRUN poetry update
+ADD todo_app todo_app
 RUN poetry install
 ENV WEBSITES_PORT=5000
 # ENV WEBAPP_PORT=8080
